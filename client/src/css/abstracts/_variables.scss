@@ -1,0 +1,10 @@
+// Breakpoints map
+$breakpoints: (
+  "small": 600px,
+  "medium": 768px,
+  "large": 1024px,
+  "x-large": 1600px
+) !default;
+
+$font-primary: 'Klee One', cursive;
+$font-secondary: 'Lato', sans-serif;

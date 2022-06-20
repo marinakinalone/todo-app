@@ -1,0 +1,21 @@
+{
+    "version": 3,
+    "mappings": "AIAA,OAAO,CAAC,kFAAI;AAEZ,OAAO,CAAC,kFAAI;ADFZ,AAAA,CAAC,CAAC;EACE,MAAM,EAAE,CAAC;EACT,UAAU,EAAE,UAAU;CACzB;;AEHD,AAAA,CAAC,CAAC;EACE,WAAW,EAAE,mBAAmB;EAChC,WAAW,EAAE,GAAG;CACnB;;AIHD,AAAA,OAAO,CAAC;EACJ,UAAU,EAAE,MAAM;CACrB",
+    "sources": [
+        "main.scss",
+        "abstracts/_variables.scss",
+        "abstracts/_mixins.scss",
+        "base/_base.scss",
+        "base/_fonts.scss",
+        "base/_typography.scss",
+        "components/_buttons.scss",
+        "components/_checkboxes.scss",
+        "components/_input.scss",
+        "layout/_header.scss",
+        "layout/_summary.scss",
+        "layout/_task.scss",
+        "layout/_todolist.scss"
+    ],
+    "names": [],
+    "file": "main.css"
+}
