@@ -9,22 +9,16 @@ const Summary = () => {
     const [todoListNames, setTodoListNames] = useState<Array<TodoList>>([])
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        /**
-         * @brief fetchContact function
-         * @details fetches data from the server to retrieve all the contacts information available.
-         * Then it sorts the received data by alphabetic and stores the result in the contacts state.
-         * The setTimeout methods allows the function to fetch and store the data before setting the loading state to false. It waits 1 second before executing: long enough to let the user reads the loading message without startling them
-         */
-        const fetchContacts = async () => {
+        const fetchListNames = async () => {
             const data = await fetch("https://tout-doux-server.herokuapp.com/lists/all")
             const result = await data.json();
             setTodoListNames([...result])
             setTimeout(() => {
                 setLoading(false)
-            }, 1000)
+            }, 500)
         }
         console.log(todoListNames)
-        fetchContacts();
+        fetchListNames();
     }, [loading])
     return (
         <main className="page">
