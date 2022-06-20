@@ -1,13 +1,18 @@
 import React from 'react';
 import './css/main.css';
-import {Header, Summary } from './components/Index';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Summary, TodoList } from './components/Index';
 
 function App() {
   return (
-    <div className="page">
-      <Header />
-      <Summary />
-    </div>
+    <Router>
+    <div className="App">
+        <Routes>
+          <Route path="/" element={<Summary />} />
+          <Route path="/:id" element={<TodoList />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

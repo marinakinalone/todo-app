@@ -1,8 +1,11 @@
 import React from 'react'
+import Header from './Header'
 
 const Summary = () => {
   return (
-    <div>Summary</div>
+    <main className="page">
+        <Header />
+    </main>
   )
 }
 
