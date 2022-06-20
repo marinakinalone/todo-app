@@ -25,7 +25,7 @@ describe('get, create, update delete lists names', () => {
   });
   test('/POST create a new todo list', (done) => {
     const listName = {
-      name: 'groceries',
+      name: 'groceries-test',
     };
     request(app)
       .post('/lists/create')
@@ -35,24 +35,24 @@ describe('get, create, update delete lists names', () => {
   });
   test('/GET one list', (done) => {
     request(app)
-      .get('/lists/groceries')
+      .get('/lists/groceries-test')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200, done);
   });
   test('/PUT update one list name', (done) => {
     const updatedListName = {
-      name: 'shopping',
+      name: 'shopping-test',
     };
     request(app)
-      .put('/lists/groceries')
+      .put('/lists/groceries-test')
       .send(updatedListName)
       .expect('Content-Type', /json/)
       .expect(200, done);
   });
   test('/DELETE delete one list name', (done) => {
     request(app)
-      .delete('/contacts/shopping')
+      .delete('/lists/shopping-test')
       .expect('Content-Type', /json/)
       .expect(200, done);
   });
