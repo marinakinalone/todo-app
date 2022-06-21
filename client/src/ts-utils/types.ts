@@ -15,8 +15,11 @@ export interface TaskProp {
     done: boolean,
     related?: string,
     listName?: string,
-    subtasks?: Array<TaskType>, 
     updateTask: updateTaskFunc
+    subtasks?: Array<TaskType>, 
+    valueState?: string
+    setValueState?: React.Dispatch<React.SetStateAction<string>>
+    handleSubmit?: (e: React.KeyboardEvent<HTMLInputElement>) => Promise<void>
 }
 
 export interface updateTaskFunc {

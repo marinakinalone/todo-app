@@ -3,7 +3,8 @@ import React from 'react'
 import { TaskProp } from '../../ts-utils/types'
 import { Subtask } from './Index'
 import { useState } from 'react'
-const Task = ({ name, done, listName, subtasks, updateTask }: TaskProp) => {
+// import CreateNewTask from '../input/CreateNewTask'
+const Task = ({ name, done, listName, subtasks, updateTask, valueState, setValueState, handleSubmit}: TaskProp) => {
   const [state, setState] = useState(done);
   const handleStateChange = () => {
     const newData = {
@@ -36,7 +37,9 @@ const Task = ({ name, done, listName, subtasks, updateTask }: TaskProp) => {
         if (task.related === name) {
           return (<Subtask key={task.name} name={task.name} done={task.done} listName={task.listName} related={task.related} updateTask={updateTask} />)
         }
-      })}
+      })
+      }
+     {/*<CreateNewTask valueState={valueState} setValueState={setValueState} handleSubmit={handleSubmit} /> */} 
     </section>
   )
 }

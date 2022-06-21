@@ -9,10 +9,9 @@ const TodoList = () => {
   const [tasksList, setTasksList] = useState<Array<TaskType>>([])
   const [subtasksList, setSubtasksList] = useState<Array<TaskType>>([])
   const [loading, setLoading] = useState(true);
-  // const [valueState, setValueState] = useState("");
+  const [valueState, setValueState] = useState("");
 
   const list = useParams().id
-
 
   useEffect(() => {
     const fetchTasksList = async () => {
@@ -47,22 +46,32 @@ const TodoList = () => {
     setSubtasksList([...subtasksData])
   }
 
-  //   const handleSubmit = async (e:React.KeyboardEvent<HTMLInputElement>) => {
-  //     if (e.key === 'Enter' && valueState !== "") {
-  //         await fetch('https://tout-doux-server.herokuapp.com/lists/create', {
-  //             method: 'POST', 
-  //             mode: 'cors',
-  //             headers: {
-  //                 'Content-Type': 'application/json'
-  //             },
-  //             body: JSON.stringify({"name": valueState})
-  //         })
-  //         const data = await fetch("https://tout-doux-server.herokuapp.com/lists/all")
-  //         const result = await data.json();
-  //         setTodoListNames([...result])
-  //         setValueState('')
-  //     }
-  // }
+    const handleSubmit = async (e:React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter' && valueState !== "") {
+        const newTask = {
+          "name": valueState,
+          "listName": list,
+          "done": false,
+          "type": "main",
+          "related": ""
+        }
+          await fetch(`https://tout-doux-server.herokuapp.com/${list}/create`, {
+              method: 'POST', 
+              mode: 'cors',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(newTask)
+          })
+          const data = await fetch(`https://tout-doux-server.herokuapp.com/${list}/all`)
+          const result = await data.json();
+          const tasksData = result.filter((item: TaskType) => item.type === 'main')
+          const subtasksData = result.filter((item: TaskType) => item.type === 'sub')
+          setTasksList([...tasksData])
+          setSubtasksList([...subtasksData])
+          setValueState('')
+      }
+  }
 
 
   return (
@@ -76,7 +85,7 @@ const TodoList = () => {
       {loading ? (<p>loading...</p>) : (
         tasksList.map(task => (<Task key={task.name} name={task.name} done={task.done} listName={list} subtasks={subtasksList} updateTask={updateTask} />))
       )}
-      <CreateNewTask />
+      <CreateNewTask valueState={valueState} setValueState={setValueState} handleSubmit={handleSubmit} />
     </main>
   )
 }

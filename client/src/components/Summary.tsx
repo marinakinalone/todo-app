@@ -1,7 +1,7 @@
 import Header from './Header'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
-import { TaskType, TodoList } from '../ts-utils/types';
+import { TodoList } from '../ts-utils/types';
 import { CreateNewList } from './input/Index';
 
 const Summary = () => {
@@ -23,7 +23,7 @@ const Summary = () => {
     }, [loading])
 
     const handleSubmit = async (e:React.KeyboardEvent<HTMLInputElement>) => {
-        const index = todoListNames.findIndex((item:TodoList|TaskType) => item.name === valueState)
+        const index = todoListNames.findIndex((item) => item.name === valueState)
         console.log(index)
         if (index !== -1) {
             console.log('already set!')
