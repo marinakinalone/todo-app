@@ -33,7 +33,7 @@ const Task = ({ name, done, listName, subtasks, updateTask }: TaskProp) => {
       </label>
       {subtasks?.map(task => {
         if (task.related === name) {
-          return (<Subtask key={task.name} name={task.name} done={task.done} updateTask={updateTask} />)
+          return (<Subtask key={task.name} name={task.name} done={task.done} listName={task.listName} related={task.related} updateTask={updateTask} />)
         }
       })}
     </section>
