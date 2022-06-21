@@ -1,0 +1,35 @@
+.page__todos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.todos {
+   list-style-type: none; 
+   padding-left: 0;
+   margin-top: 1.5rem;
+   margin-bottom: 0.5rem;
+   width: 340px;
+
+}
+
+.todos__item {
+    border: solid 1px $color_gray;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background-color: $color_secondary;
+    * {
+        background-color: $color_secondary;
+        text-decoration: none;
+    }
+    &:hover {
+        background-color: $color_hover;
+        cursor: pointer;
+        * {
+            background-color: $color_hover;
+            cursor: pointer;
+        }
+    }
+}
