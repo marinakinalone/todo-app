@@ -17,7 +17,6 @@ A coding test given by </salt> with four days to complete it. Create a to-do lis
 ### - server-side -
 - Node JS
 - Express
-- 
 
 ### - database -
 - MongoDB
