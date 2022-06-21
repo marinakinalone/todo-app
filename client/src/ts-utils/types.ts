@@ -13,6 +13,7 @@ export interface TaskType {
 export interface TaskProp {
     name: string,
     done: boolean,
+    related?: string,
     listName?: string,
     subtasks?: Array<TaskType>, 
     updateTask: updateTaskFunc
