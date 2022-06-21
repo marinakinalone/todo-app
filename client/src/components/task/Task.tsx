@@ -16,16 +16,18 @@ const Task = ({ name, done, listName, subtasks, updateTask }: TaskProp) => {
     updateTask(name, newData)
   }
   return (
-    <section className="task">
+    <section className="task" style={state === true ? ({backgroundColor: "#f7f6f2"}):({backgroundColor: "#ffffff"})}>
       <input
         checked={state}
         onChange={handleStateChange}
         type="checkbox"
-        id="cbx"
-        className="hidden-xs-up" />
+        id="task-checkbox"
+        className="task__checkbox"
+        />
       <label
-        htmlFor="cbx"
-        className="cbx"
+        htmlFor="task-checkbox"
+        className="task__description"
+        style={state === true ? ({color: "#727171", backgroundColor: "transparent", fontStyle: "italic"}):({color: "#1f1f1f", backgroundColor: "transparent", fontStyle: "normal"})}
       >
         {name}
       </label>

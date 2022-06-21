@@ -1,0 +1,16 @@
+.task {
+    border: solid 1px $color_gray;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    width: 340px;
+}
+
+.task__description {
+    padding-left: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.task__checkbox {
+    height: 1rem;
+}

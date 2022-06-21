@@ -45,7 +45,7 @@
   font-weight: 600;
 }
 
-.todos__create-input:focus ~ label, input:valid ~ label {
+.todos__create-input:focus ~ label, .todos__create-input:valid ~ label {
   -webkit-transform: translateY(-50%) scale(0.9);
           transform: translateY(-50%) scale(0.9);
   background-color: #f7f6f2;
@@ -101,5 +101,73 @@
 .todos__item:hover * {
   background-color: #ACCBBE;
   cursor: pointer;
+}
+
+.task {
+  border: solid 1px #727171;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  width: 340px;
+}
+
+.task__description {
+  padding-left: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.task__checkbox {
+  height: 1rem;
+}
+
+.page__todolist {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.todolist__title {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* From uiverse.io by @Jedi-hongbin */
+.todolist__button {
+  margin-top: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 1rem;
+  width: 350px;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+  cursor: pointer;
+  border: none;
+}
+
+.todolist__button span * {
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.todolist__button > svg {
+  margin-top: 0.4rem;
+  margin-right: 0.2rem;
+  margin-left: 0.4rem;
+  -webkit-transition: all 0.4s ease-in;
+  transition: all 0.4s ease-in;
+}
+
+.todolist__button:hover > svg {
+  font-size: 1.2rem;
+  -webkit-transform: translateX(-5px);
+          transform: translateX(-5px);
 }
 /*# sourceMappingURL=main.css.map */

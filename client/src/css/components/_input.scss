@@ -27,7 +27,7 @@
     font-weight: 600;
 }
 
-.todos__create-input:focus ~ label, input:valid ~ label {
+.todos__create-input:focus ~ label, .todos__create-input:valid ~ label {
     transform: translateY(-50%) scale(0.9);
     background-color: $color_primary;
     color: $color_focus;

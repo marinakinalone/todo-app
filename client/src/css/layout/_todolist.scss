@@ -1,0 +1,40 @@
+.page__todolist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.todolist__title {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* From uiverse.io by @Jedi-hongbin */
+.todolist__button {
+    margin-top: 0.5rem;
+    display: flex;
+    height: 1rem;
+    width: 350px;
+    transition: all 0.2s linear;
+    cursor: pointer;
+    border: none;
+    span {
+        * {
+            text-decoration: none;
+            font-size: 1rem;
+        }
+    }
+   }
+   
+   .todolist__button > svg {
+    margin-top: 0.4rem;
+    margin-right: 0.2rem;
+    margin-left: 0.4rem;
+    transition: all 0.4s ease-in;
+   }
+   
+   .todolist__button:hover > svg {
+    font-size: 1.2rem;
+    transform: translateX(-5px);
+   }
+   
