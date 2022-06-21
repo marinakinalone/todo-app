@@ -27,6 +27,7 @@ const TodoList = () => {
       }, 500)
     }
     fetchTasksList();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading])
 
   const updateTask = async (name: string, newData: TaskType) => {

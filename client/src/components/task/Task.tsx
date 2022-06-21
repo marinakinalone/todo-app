@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React from 'react'
 import { TaskProp } from '../../ts-utils/types'
 import { Subtask } from './Index'

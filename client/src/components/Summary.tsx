@@ -1,13 +1,14 @@
 import Header from './Header'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
-import { TodoList } from '../ts-utils/types';
+import { TaskType, TodoList } from '../ts-utils/types';
 import { CreateNewList } from './input/Index';
 
 const Summary = () => {
     const [todoListNames, setTodoListNames] = useState<Array<TodoList>>([])
     const [loading, setLoading] = useState(true);
     const [valueState, setValueState] = useState("");
+    const [error, setError] = useState('')
 
     useEffect(() => {
         const fetchListNames = async () => {
@@ -22,7 +23,18 @@ const Summary = () => {
     }, [loading])
 
     const handleSubmit = async (e:React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && valueState !== "") {
+        const index = todoListNames.findIndex((item:TodoList|TaskType) => item.name === valueState)
+        console.log(index)
+        if (index !== -1) {
+            console.log('already set!')
+            setError('name already exists')
+            setTimeout(() => {
+                setError('')
+             }, 2000)
+            return;
+        } 
+        if (e.key === 'Enter' && valueState !== "" && error === "") {
+            console.log('all good')
             await fetch('https://tout-doux-server.herokuapp.com/lists/create', {
                 method: 'POST', 
                 mode: 'cors',
@@ -54,6 +66,7 @@ const Summary = () => {
                         })}
                     </ul>
                     <CreateNewList handleSubmit={handleSubmit} value={valueState} setValue={setValueState} />
+                    {error ? (<p style={{color: "red"}}>{error}</p>):(<></>)}
                 </>
             )}
 
