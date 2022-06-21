@@ -2,6 +2,7 @@ import Header from './Header'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import { TodoList } from '../ts-utils/types';
+import { CreateNewList } from './input/Index';
 
 const Summary = () => {
     const [todoListNames, setTodoListNames] = useState<Array<TodoList>>([])
@@ -40,7 +41,6 @@ const Summary = () => {
     return (
         <main className="page__todos">
             <Header />
-
             {loading ? (
                 <p>loading todo lists...</p>
             ) : (
@@ -48,21 +48,12 @@ const Summary = () => {
                     <ul className="todos">
                         {todoListNames.map(todo => {
                             return (
-                                <li className="todos__item">
-                                    <Link to={`/${todo.name}`} key={todo.name}>{todo.name}</Link>
+                                <li className="todos__item" key={todo.name}>
+                                    <Link to={`/${todo.name}`}>{todo.name}</Link>
                                 </li>)
                         })}
                     </ul>
-                    <section className="todos__create">
-                        <input required={true}
-                        type="text"
-                        name="text"
-                        className="todos__create-input"
-                        onKeyPress={handleSubmit}
-                        value={valueState}
-                        onChange={ (e) => setValueState(e.target.value) } />
-                        <label className="todos__create-label">create a new list</label>
-                    </section>
+                    <CreateNewList handleSubmit={handleSubmit} value={valueState} setValue={setValueState} />
                 </>
             )}
 

@@ -1,8 +1,8 @@
 import React from 'react'
-
-const Subtask = () => {
+import { TaskProp } from '../../ts-utils/types'
+const Subtask = ({name, done}:TaskProp) => {
   return (
-    <div>Subtask</div>
+    <p>{name}</p>
   )
 }
 
