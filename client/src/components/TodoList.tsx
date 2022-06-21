@@ -26,7 +26,7 @@ const TodoList = () => {
       }, 500)
     }
     fetchTasksList();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading])
 
   const updateTask = async (name: string, newData: TaskType) => {
@@ -46,44 +46,50 @@ const TodoList = () => {
     setSubtasksList([...subtasksData])
   }
 
-    const handleSubmit = async (e:React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter' && valueState !== "") {
-        const newTask = {
-          "name": valueState,
-          "listName": list,
-          "done": false,
-          "type": "main",
-          "related": ""
-        }
-          await fetch(`https://tout-doux-server.herokuapp.com/${list}/create`, {
-              method: 'POST', 
-              mode: 'cors',
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(newTask)
-          })
-          const data = await fetch(`https://tout-doux-server.herokuapp.com/${list}/all`)
-          const result = await data.json();
-          const tasksData = result.filter((item: TaskType) => item.type === 'main')
-          const subtasksData = result.filter((item: TaskType) => item.type === 'sub')
-          setTasksList([...tasksData])
-          setSubtasksList([...subtasksData])
-          setValueState('')
+  const handleSubmit = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && valueState !== "") {
+      const newTask = {
+        "name": valueState,
+        "listName": list,
+        "done": false,
+        "type": "main",
+        "related": ""
       }
+      await fetch(`https://tout-doux-server.herokuapp.com/${list}/create`, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newTask)
+      })
+      const data = await fetch(`https://tout-doux-server.herokuapp.com/${list}/all`)
+      const result = await data.json();
+      const tasksData = result.filter((item: TaskType) => item.type === 'main')
+      setTasksList([...tasksData])
+      setValueState('')
+    }
   }
 
 
   return (
     <main className="page__todolist">
       <button className="todolist__button">
-      <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg>
-      <span><Link to={`/`}>back to lists</Link></span>
-        
+        <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg>
+        <span><Link to={`/`}>back to lists</Link></span>
+
       </button>
       <h2 className="todolist__title">{list}</h2>
       {loading ? (<p>loading...</p>) : (
-        tasksList.map(task => (<Task key={task.name} name={task.name} done={task.done} listName={list} subtasks={subtasksList} updateTask={updateTask} />))
+        tasksList.map(task => (<Task
+          key={task.name}
+          name={task.name}
+          done={task.done}
+          listName={list}
+          subtasks={subtasksList}
+          setSubtasks={setSubtasksList}
+          updateTask={updateTask}
+        />))
       )}
       <CreateNewTask valueState={valueState} setValueState={setValueState} handleSubmit={handleSubmit} />
     </main>

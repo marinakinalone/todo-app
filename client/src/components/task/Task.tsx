@@ -4,7 +4,7 @@ import { TaskProp } from '../../ts-utils/types'
 import { Subtask } from './Index'
 import { useState } from 'react'
 // import CreateNewTask from '../input/CreateNewTask'
-const Task = ({ name, done, listName, subtasks, updateTask, valueState, setValueState, handleSubmit}: TaskProp) => {
+const Task = ({ name, done, listName, subtasks, updateTask }: TaskProp) => {
   const [state, setState] = useState(done);
   const handleStateChange = () => {
     const newData = {
