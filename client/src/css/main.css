@@ -13,11 +13,45 @@
   color: #1f1f1f;
 }
 
-.todos__create {
-  position: relative;
+/* inspiration from uiverse.io by @Jedi-hongbin */
+.todolist__button {
+  margin-top: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 1rem;
+  width: 350px;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+  cursor: pointer;
+  border: none;
 }
 
-.todos__create-input {
+.todolist__button span * {
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.todolist__button > svg {
+  margin-top: 0.45rem;
+  margin-right: 0.2rem;
+  margin-left: 0.4rem;
+  -webkit-transition: all 0.4s ease-in;
+  transition: all 0.4s ease-in;
+}
+
+.todolist__button:hover > svg {
+  font-size: 1.2rem;
+  -webkit-transform: translateX(-5px);
+          transform: translateX(-5px);
+}
+
+.todos__create, .task__create {
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+.todos__create-input, .task__create-input {
   max-width: 340px;
   border: solid 1px #727171;
   border-radius: 1rem;
@@ -144,38 +178,5 @@
 .todolist__title {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
-}
-
-/* From uiverse.io by @Jedi-hongbin */
-.todolist__button {
-  margin-top: 0.5rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  height: 1rem;
-  width: 350px;
-  -webkit-transition: all 0.2s linear;
-  transition: all 0.2s linear;
-  cursor: pointer;
-  border: none;
-}
-
-.todolist__button span * {
-  text-decoration: none;
-  font-size: 1rem;
-}
-
-.todolist__button > svg {
-  margin-top: 0.45rem;
-  margin-right: 0.2rem;
-  margin-left: 0.4rem;
-  -webkit-transition: all 0.4s ease-in;
-  transition: all 0.4s ease-in;
-}
-
-.todolist__button:hover > svg {
-  font-size: 1.2rem;
-  -webkit-transform: translateX(-5px);
-          transform: translateX(-5px);
 }
 /*# sourceMappingURL=main.css.map */

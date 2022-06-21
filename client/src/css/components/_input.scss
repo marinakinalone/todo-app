@@ -1,8 +1,9 @@
-.todos__create {
+.todos__create, .task__create {
     position: relative;
+    margin-top: 0.5rem;
 }
 
-.todos__create-input {
+.todos__create-input, .task__create-input {
     max-width: 340px;
     border: solid 1px $color_gray;
     border-radius: 1rem;
@@ -34,3 +35,4 @@
     padding: 0 0.2rem;
     font-weight: 600;
 }
+
