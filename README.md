@@ -10,21 +10,27 @@ A coding test given by </salt> with four days to complete it. Create a to-do lis
 ## Built with 
 
 ### - client-side -
-- 
+- React
+- TypeScript
+- SASS
   
 ### - server-side -
+- Node JS
+- Express
 - 
 
 ### - database -
-- 
+- MongoDB
+- Mongoose
 
 ### - devops -
-- 
+- Heroku
 
 ## Deployment
 
-[coming](https://)
+[tout-doux-app (client-side)](https://https://tout-doux-app.herokuapp.com/)
 
+[tout-doux-server (server-side)](https://https://tout-doux-app.herokuapp.com/)
 
 ## Installation
 
@@ -40,7 +46,8 @@ npm i
 npm run start
 ```
 
-## ENV ?
+## ENV
+to-do
 
 ## What I have learned from this project
 to-do

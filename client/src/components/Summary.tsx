@@ -17,13 +17,11 @@ const Summary = () => {
                 setLoading(false)
             }, 500)
         }
-        console.log(todoListNames)
         fetchListNames();
     }, [loading])
 
     const handleSubmit = async (e:React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && valueState !== "") {
-            console.log(valueState)
             await fetch('https://tout-doux-server.herokuapp.com/lists/create', {
                 method: 'POST', 
                 mode: 'cors',
