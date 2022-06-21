@@ -1,3 +1,4 @@
+const { rawListeners } = require('../database/models/Task');
 const Task = require('../database/models/Task');
 
 const getTasksFromList = async (req, res) => {
@@ -39,9 +40,9 @@ const updateTask = async (req, res) => {
   }, {
     name: req.body.name,
     listName: req.params.list,
-    done: false,
-    type: 'main',
-    related: '',
+    done: req.body.done,
+    type: req.body.type,
+    related: req.body.related,
   }, { new: true });
   if (!data) {
     res.status(404).send('cannot find task to update');
