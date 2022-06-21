@@ -6,10 +6,10 @@ import { Link } from 'react-router-dom'
 const TodoList = () => {
     const name = useParams().id
   return (
-    <section className="todolist">
+    <main className="page__todolist">
         <Link to={`/`}>back</Link>
         <p>the name of the todo list is: {name}</p>
-    </section>
+    </main>
   )
 }
 
