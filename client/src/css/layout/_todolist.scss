@@ -7,5 +7,11 @@
 .todolist__title {
     margin-top: 1rem;
     margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 1.9rem;
 }
 
+.filters {
+    display: flex;
+    margin: 0rem 0 0.5rem -7rem;
+}

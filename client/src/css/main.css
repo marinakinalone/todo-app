@@ -46,6 +46,24 @@
           transform: translateX(-5px);
 }
 
+.button__filter {
+  margin: 0 0.2rem;
+  border-width: 1px;
+  padding: 0.2rem 0.4rem;
+  border-radius: 5px;
+}
+
+.button__filter:hover {
+  cursor: pointer;
+  background-color: #ACCBBE !important;
+  color: #1f1f1f !important;
+}
+
+.button__filter:focus {
+  background-color: #a3499a !important;
+  color: #ffffff !important;
+}
+
 .todos__create, .task__create {
   position: relative;
   margin-top: 0.5rem;
@@ -216,5 +234,14 @@
 .todolist__title {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 1.9rem;
+}
+
+.filters {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0rem 0 0.5rem -7rem;
 }
 /*# sourceMappingURL=main.css.map */

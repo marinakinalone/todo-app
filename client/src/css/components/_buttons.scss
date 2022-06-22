@@ -13,17 +13,32 @@
             font-size: 1rem;
         }
     }
-   }
+}
    
-   .todolist__button > svg {
+.todolist__button > svg {
     margin-top: 0.45rem;
     margin-right: 0.2rem;
     margin-left: 0.4rem;
     transition: all 0.4s ease-in;
-   }
+}
    
-   .todolist__button:hover > svg {
+.todolist__button:hover > svg {
     font-size: 1.2rem;
     transform: translateX(-5px);
-   }
+}
    
+.button__filter {
+    margin: 0 0.2rem;
+    border-width: 1px;
+    padding: 0.2rem 0.4rem;
+    border-radius: 5px;
+    &:hover {
+        cursor: pointer;
+        background-color: $color_hover !important;
+        color: $color_black !important;
+    }
+    &:focus {
+        background-color: $color_focus !important;
+        color: $color_secondary !important;
+    }
+}
