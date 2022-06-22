@@ -1,6 +1,11 @@
 import React from 'react'
 
 const CreateNewSubtask = ({subtaskInputValue, setSubtaskInputValue, handleSubmitSubtask}: any) => {
+
+//     <div class="form">
+//   <input class="input" placeholder="Type your text" required="" type="text">
+//   <span class="input-border"></span>
+// </div>
   return (
     <section className="subtask__create">
         <input required={true}
@@ -9,8 +14,10 @@ const CreateNewSubtask = ({subtaskInputValue, setSubtaskInputValue, handleSubmit
                 className="subtask__create-input"
                 onKeyPress={handleSubmitSubtask}
                 value={subtaskInputValue}
-                onChange={(e) => setSubtaskInputValue(e.target.value)} />
-            <label className="subtask__create-label">add new subtask</label>
+                onChange={(e) => setSubtaskInputValue(e.target.value)}
+                placeholder="new subtask" />
+          
+            <span className="subtask__create-border"></span>
     </section>
   )
 }

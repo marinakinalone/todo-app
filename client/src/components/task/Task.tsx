@@ -62,7 +62,8 @@ const Task = ({ name, done, listName, tasksList, updateTask, createTask }: TaskP
         }
       })
       }
-     <CreateNewSubtask subtaskInputValue={subtaskInputValue} setSubtaskInputValue={setSubtaskInputValue} handleSubmitSubtask={handleSubmitSubtask} />
+      {state === true? (<></>) :(<CreateNewSubtask subtaskInputValue={subtaskInputValue} setSubtaskInputValue={setSubtaskInputValue} handleSubmitSubtask={handleSubmitSubtask} />)}
+     
     </section>
   )
 }
