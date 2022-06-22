@@ -15,7 +15,12 @@ connectToDb();
 const app = express();
 const server = http.createServer(app);
 
-const io = socketIO(server);
+const io = socketIO(server, {
+  cors: {
+    origin: 'https://tout-doux-server.herokuapp.com',
+    methods: ['GET', 'POST', 'UPDATE', 'DELETE'],
+  },
+});
 
 io.on('connection', (socket) => {
   console.log('Client connected');
