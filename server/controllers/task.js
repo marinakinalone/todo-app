@@ -1,4 +1,3 @@
-const { rawListeners } = require('../database/models/Task');
 const Task = require('../database/models/Task');
 
 const getTasksFromList = async (req, res) => {
@@ -26,9 +25,9 @@ const createTask = async (req, res) => {
   const data = await Task.create({
     name: req.body.name,
     listName: req.params.list,
-    done: false,
-    type: 'main',
-    related: '',
+    done: req.body.done,
+    type: req.body.type,
+    related: req.body.related,
   });
   res.json(data);
 };
