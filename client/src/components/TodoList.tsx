@@ -25,7 +25,6 @@ const TodoList = () => {
       const mainTasksData = result.filter((item: TaskType) => item.type === 'main')
       const todoTasksData = mainTasksData.filter((item: TaskType) => item.done === false)
       const doneTasksData = mainTasksData.filter((item: TaskType) => item.done === true)
-      console.log(doneTasksData)
       setTasksList([...result])
       setMainTasks([...mainTasksData])
       setTodoTasks([...todoTasksData])
@@ -66,8 +65,12 @@ const TodoList = () => {
     const data = await fetch(`https://tout-doux-server.herokuapp.com/${list}/all`)
     const result = await data.json();
     const mainTasksData = result.filter((item: TaskType) => item.type === 'main')
+    const todoTasksData = mainTasksData.filter((item: TaskType) => item.done === false)
     setTasksList([...result])
     setMainTasks([...mainTasksData])
+    setTodoTasks([...todoTasksData])
+    if (active === 'all') setDisplay(mainTasksData)
+    if (active === 'to do') setDisplay(todoTasksData)
   }
 
   const handleSubmitTask = async (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -80,6 +83,7 @@ const TodoList = () => {
         "related": ""
       }
       await createTask(newTask)
+      setTaskInputValue('');
     }
   }
 
@@ -134,7 +138,8 @@ const TodoList = () => {
           createTask={createTask}
         />))
       )}
-      <CreateNewTask taskInputValue={taskInputValue} setTaskInputValue={setTaskInputValue} handleSubmit={handleSubmitTask} />
+      {active === 'done' ? (<></>) : (<CreateNewTask taskInputValue={taskInputValue} setTaskInputValue={setTaskInputValue} handleSubmit={handleSubmitTask} />)}
+  
     </main>
   )
 }

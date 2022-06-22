@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import { TodoList } from '../ts-utils/types';
 import { CreateNewList } from './input/Index';
+import socketIOClient from "socket.io-client";
+const server = "https://tout-doux-server.herokuapp.com";
 
 const Summary = () => {
     const [todoListNames, setTodoListNames] = useState<Array<TodoList>>([])
     const [loading, setLoading] = useState(true);
     const [valueState, setValueState] = useState("");
     const [error, setError] = useState('')
+    const socket = socketIOClient(server);
 
     useEffect(() => {
         const fetchListNames = async () => {
@@ -20,28 +23,28 @@ const Summary = () => {
             }, 500)
         }
         fetchListNames();
+        socket.on("changes", data => {
+            fetchListNames()
+        });
     }, [loading])
 
-    const handleSubmit = async (e:React.KeyboardEvent<HTMLInputElement>) => {
+    const handleSubmit = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         const index = todoListNames.findIndex((item) => item.name === valueState)
-        console.log(index)
         if (index !== -1) {
-            console.log('already set!')
             setError('name already exists')
             setTimeout(() => {
                 setError('')
-             }, 2000)
+            }, 2000)
             return;
-        } 
+        }
         if (e.key === 'Enter' && valueState !== "" && error === "") {
-            console.log('all good')
             await fetch('https://tout-doux-server.herokuapp.com/lists/create', {
-                method: 'POST', 
+                method: 'POST',
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({"name": valueState})
+                body: JSON.stringify({ "name": valueState })
             })
             const data = await fetch("https://tout-doux-server.herokuapp.com/lists/all")
             const result = await data.json();
@@ -66,7 +69,7 @@ const Summary = () => {
                         })}
                     </ul>
                     <CreateNewList handleSubmit={handleSubmit} value={valueState} setValue={setValueState} />
-                    {error ? (<p style={{color: "red"}}>{error}</p>):(<></>)}
+                    {error ? (<p style={{ color: "red" }}>{error}</p>) : (<></>)}
                 </>
             )}
 
