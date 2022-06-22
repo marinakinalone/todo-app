@@ -37,6 +37,7 @@ const Task = ({ name, done, listName, tasksList, updateTask, createTask }: TaskP
         "related": name
       }
       await createTask(newTask)
+      setSubtaskInputValue('')
     }
   }
 
