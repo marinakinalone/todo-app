@@ -13,13 +13,23 @@ export interface TaskType {
 export interface TaskProp {
     name: string,
     done: boolean,
-    updateTask: updateTaskFunc
-    related?: string,
     listName?: string,
-    subtasks?: Array<TaskType>, 
-    setSubtasks?:React.Dispatch<React.SetStateAction<TaskType[]>>
+    tasksList: Array<TaskType>, 
+    updateTask: UpdateTaskFunc
+    createTask: CreateTaskFunc
 }
 
-export interface updateTaskFunc {
+export interface SubtaskProp {
+    name: string
+    listName?: string
+    related: string
+    done: boolean
+    updateTask: UpdateTaskFunc
+}
+export interface UpdateTaskFunc {
     (name: string, newData: TaskType): void
+}
+
+export interface CreateTaskFunc {
+    (newTask: TaskType): Promise<void>
 }

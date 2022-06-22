@@ -1,8 +1,8 @@
 import React from 'react'
-import { TaskProp } from '../../ts-utils/types'
+import { SubtaskProp } from '../../ts-utils/types'
 import { useState } from 'react'
 
-const Subtask = ({name, listName, related, done, updateTask}:TaskProp) => {
+const Subtask = ({name, listName, related, done, updateTask}:SubtaskProp) => {
   const [state, setState] = useState(done);
   const handleStateChange = () => {
     const newData = {

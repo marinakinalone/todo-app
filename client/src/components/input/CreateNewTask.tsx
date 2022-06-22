@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CreateNewTask = ({valueState, setValueState, handleSubmit}: any) => {
+const CreateNewTask = ({taskInputValue, setTaskInputValue, handleSubmit}: any) => {
   return (
     <section className="todos__create">
         <input required={true}
@@ -8,8 +8,8 @@ const CreateNewTask = ({valueState, setValueState, handleSubmit}: any) => {
                 name="text"
                 className="todos__create-input"
                 onKeyPress={handleSubmit}
-                value={valueState}
-                onChange={(e) => setValueState(e.target.value)} />
+                value={taskInputValue}
+                onChange={(e) => setTaskInputValue(e.target.value)} />
             <label className="todos__create-label">add new task</label>
     </section>
   )

@@ -7,9 +7,9 @@ import { CreateNewTask } from './input/Index'
 
 const TodoList = () => {
   const [tasksList, setTasksList] = useState<Array<TaskType>>([])
-  const [subtasksList, setSubtasksList] = useState<Array<TaskType>>([])
+  const [mainTasks, setMainTasks] = useState<Array<TaskType>>([])
   const [loading, setLoading] = useState(true);
-  const [valueState, setValueState] = useState("");
+  const [taskInputValue, setTaskInputValue] = useState("");
 
   const list = useParams().id
 
@@ -17,10 +17,9 @@ const TodoList = () => {
     const fetchTasksList = async () => {
       const data = await fetch(`https://tout-doux-server.herokuapp.com/${list}/all`)
       const result = await data.json();
-      const tasksData = result.filter((item: TaskType) => item.type === 'main')
-      const subtasksData = result.filter((item: TaskType) => item.type === 'sub')
-      setTasksList([...tasksData])
-      setSubtasksList([...subtasksData])
+      const mainTasksData = result.filter((item: TaskType) => item.type === 'main')
+      setTasksList([...result])
+      setMainTasks([...mainTasksData])
       setTimeout(() => {
         setLoading(false)
       }, 500)
@@ -28,7 +27,6 @@ const TodoList = () => {
     fetchTasksList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading])
-
   const updateTask = async (name: string, newData: TaskType) => {
     await fetch(`https://tout-doux-server.herokuapp.com/${newData.listName}/${name}`, {
       method: 'PUT',
@@ -40,37 +38,39 @@ const TodoList = () => {
     })
     const data = await fetch(`https://tout-doux-server.herokuapp.com/${newData.listName}/all`)
     const result = await data.json();
-    const tasksData = result.filter((item: TaskType) => item.type === 'main')
-    const subtasksData = result.filter((item: TaskType) => item.type === 'sub')
-    setTasksList([...tasksData])
-    setSubtasksList([...subtasksData])
+    const mainTasksData = result.filter((item: TaskType) => item.type === 'main')
+    setTasksList([...result])
+    setMainTasks([...mainTasksData])
   }
 
-  const handleSubmit = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && valueState !== "") {
+  const createTask = async (newTask:TaskType) => {
+    await fetch(`https://tout-doux-server.herokuapp.com/${list}/create`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newTask)
+    })
+    const data = await fetch(`https://tout-doux-server.herokuapp.com/${list}/all`)
+    const result = await data.json();
+    const mainTasksData = result.filter((item: TaskType) => item.type === 'main')
+    setTasksList([...result])
+    setMainTasks([...mainTasksData])
+  }
+
+  const handleSubmitTask = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && taskInputValue !== "") {
       const newTask = {
-        "name": valueState,
+        "name": taskInputValue,
         "listName": list,
         "done": false,
         "type": "main",
         "related": ""
       }
-      await fetch(`https://tout-doux-server.herokuapp.com/${list}/create`, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newTask)
-      })
-      const data = await fetch(`https://tout-doux-server.herokuapp.com/${list}/all`)
-      const result = await data.json();
-      const tasksData = result.filter((item: TaskType) => item.type === 'main')
-      setTasksList([...tasksData])
-      setValueState('')
+      await createTask(newTask)
     }
   }
-
 
   return (
     <main className="page__todolist">
@@ -81,17 +81,17 @@ const TodoList = () => {
       </button>
       <h2 className="todolist__title">{list}</h2>
       {loading ? (<p>loading...</p>) : (
-        tasksList.map(task => (<Task
+        mainTasks.map(task => (<Task
           key={task.name}
           name={task.name}
           done={task.done}
           listName={list}
-          subtasks={subtasksList}
-          setSubtasks={setSubtasksList}
+          tasksList={tasksList}
           updateTask={updateTask}
+          createTask={createTask}
         />))
       )}
-      <CreateNewTask valueState={valueState} setValueState={setValueState} handleSubmit={handleSubmit} />
+      <CreateNewTask taskInputValue={taskInputValue} setTaskInputValue={setTaskInputValue} handleSubmit={handleSubmitTask} />
     </main>
   )
 }

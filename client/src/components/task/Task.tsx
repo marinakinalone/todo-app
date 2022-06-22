@@ -1,11 +1,20 @@
 /* eslint-disable array-callback-return */
 import React from 'react'
-import { TaskProp } from '../../ts-utils/types'
+import { TaskProp, TaskType } from '../../ts-utils/types'
 import { Subtask } from './Index'
-import { useState } from 'react'
-// import CreateNewTask from '../input/CreateNewTask'
-const Task = ({ name, done, listName, subtasks, updateTask }: TaskProp) => {
+import { useState, useEffect } from 'react'
+import { CreateNewSubtask } from '../input/Index'
+
+const Task = ({ name, done, listName, tasksList, updateTask, createTask }: TaskProp) => {
   const [state, setState] = useState(done);
+  const [subtasks, setSubtasks] = useState<Array<TaskType>>([])
+  const [subtaskInputValue, setSubtaskInputValue] = useState("");
+
+  useEffect(() => {
+    const subtasksData = tasksList.filter((item: TaskType) => item.type === 'sub')
+    setSubtasks([...subtasksData])
+  }, [tasksList])
+
   const handleStateChange = () => {
     const newData = {
       "name": name,
@@ -17,6 +26,20 @@ const Task = ({ name, done, listName, subtasks, updateTask }: TaskProp) => {
     setState(!state)
     updateTask(name, newData)
   }
+
+  const handleSubmitSubtask = async (e: React.KeyboardEvent<HTMLInputElement>, related: string) => {
+    if (e.key === 'Enter' && subtaskInputValue !== "") {
+      const newTask = {
+        "name": subtaskInputValue,
+        "listName": listName,
+        "done": false,
+        "type": "sub",
+        "related": name
+      }
+      await createTask(newTask)
+    }
+  }
+
   return (
     <section className="task" style={state === true ? ({backgroundColor: "#f7f6f2"}):({backgroundColor: "#ffffff"})}>
       <input
@@ -39,7 +62,7 @@ const Task = ({ name, done, listName, subtasks, updateTask }: TaskProp) => {
         }
       })
       }
-     {/*<CreateNewTask valueState={valueState} setValueState={setValueState} handleSubmit={handleSubmit} /> */} 
+     <CreateNewSubtask subtaskInputValue={subtaskInputValue} setSubtaskInputValue={setSubtaskInputValue} handleSubmitSubtask={handleSubmitSubtask} />
     </section>
   )
 }
