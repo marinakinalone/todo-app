@@ -36,3 +36,38 @@
     font-weight: 600;
 }
 
+
+
+.subtask__create {
+    position: relative;
+    margin-top: 0.25rem;
+    margin-left: 1.5rem;
+}
+.subtask__create-input {
+    font-size: 0.9rem;
+    width: 100%;
+    padding: 0.25rem 0.5rem;
+    border: none;
+    border-bottom: 1px solid $color_primary;
+    background-color: $color_secondary;
+}
+.subtask__create-border {
+    position: absolute;
+    background-color: $color_focus;
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    transition: 0.3s;
+}
+.subtask__create-input:hover {
+    background-color: $color_primary;
+}
+
+.subtask__create-input:focus {
+    outline: none;
+}
+
+.subtask__create-input:focus ~ .subtask__create-border{
+    width: 100%;
+}

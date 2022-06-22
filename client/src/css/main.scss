@@ -11,13 +11,12 @@
   'base/fonts',
   'base/typography';
 
-// 3. Layout-related sections
+// 3. Smaller components for layout
 @import
   'components/buttons',
-  'components/checkboxes',
   'components/input';
 
-// 3. Smaller components for layout
+// 4. Layout-related sections
 @import
   'layout/header',
   'layout/summary',
