@@ -24,12 +24,13 @@ io.on('connection', (socket) => {
 
 TodoList.watch().on('change', (change) => {
   console.log('some changes in the database');
-  io.to(change.fullDocument).emit('changes', change.fullDocument);
+  // io.to(change.fullDocument).emit('changes', change.fullDocument);
+  io.emit('changes', change.fullDocument);
 });
 
 Task.watch().on('change', (change) => {
   console.log('some changes in the database');
-  io.to(change.fullDocument).emit('changes', change.fullDocument);
+  io.emit('changes', change.fullDocument);
 });
 
 app.use(cors());
