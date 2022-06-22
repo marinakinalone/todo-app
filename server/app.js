@@ -16,10 +16,8 @@ const app = express();
 const server = http.createServer(app);
 
 const io = socketIO(server, {
-  cors: {
-    origin: 'https://tout-doux-server.herokuapp.com',
-    methods: ['GET', 'POST', 'UPDATE', 'DELETE'],
-  },
+  cors: true,
+  origins: ['https://tout-doux-server.herokuapp.com'],
 });
 
 io.on('connection', (socket) => {
@@ -29,7 +27,6 @@ io.on('connection', (socket) => {
 
 TodoList.watch().on('change', (change) => {
   console.log('some changes in the database');
-  // io.to(change.fullDocument).emit('changes', change.fullDocument);
   io.emit('changes', change.fullDocument);
 });
 
