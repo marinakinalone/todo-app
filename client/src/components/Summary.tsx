@@ -3,17 +3,17 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import { TodoList } from '../ts-utils/types';
 import { CreateNewList } from './input/Index';
-import socketIOClient from 'socket.io-client';
-const server = "https://tout-doux-server.herokuapp.com";
+import socket from './helpers/socket';
+import errorMessage from './helpers/errorMessage';
+import InputError from './InputError';
+import { styleDefaultError } from './helpers/styles';
 
 const Summary = () => {
     const [todoListNames, setTodoListNames] = useState<Array<TodoList>>([])
     const [loading, setLoading] = useState(true);
     const [valueState, setValueState] = useState("");
     const [error, setError] = useState('')
-    const navigate = useNavigate()
-    const socket = socketIOClient(server);
-
+    const navigate = useNavigate()  
 
     useEffect(() => {
         const fetchListNames = async () => {
@@ -26,30 +26,22 @@ const Summary = () => {
         }
         fetchListNames();
         socket.on("changes in todos", data => {
-      console.log('new changes in lists')
-
             fetchListNames()
         });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loading])
 
     const handleSubmit = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         const index = todoListNames.findIndex((item) => item.name === valueState)
         if (index !== -1) {
-            setError('name already exists')
-            setTimeout(() => {
-                setError('')
-            }, 2000)
+            errorMessage(setError, 'name already exists')
             return;
         }
         if (e.key === 'Enter' && valueState === "") {
-            setError('please enter a name for your to-do list')
-            setTimeout(() => {
-                setError('')
-            }, 2000)
+            errorMessage(setError, 'please enter a name for your to-do list')
             return;
         }
-        
+
         if (e.key === 'Enter' && valueState !== "" && error === "") {
             await fetch('https://tout-doux-server.herokuapp.com/lists/create', {
                 method: 'POST',
@@ -77,16 +69,16 @@ const Summary = () => {
                         {todoListNames.map(todo => {
                             return (
                                 <li
-                                className="todos__item"
-                                key={todo.name}
-                                onClick={() => navigate(`/${todo.name}`)}
+                                    className="todos__item"
+                                    key={todo.name}
+                                    onClick={() => navigate(`/${todo.name}`)}
                                 >
                                     <Link to={`/${todo.name}`}>{todo.name}</Link>
                                 </li>)
                         })}
                     </ul>
                     <CreateNewList handleSubmit={handleSubmit} value={valueState} setValue={setValueState} />
-                    {error ? (<p style={{ color: "red" }}>{error}</p>) : (<></>)}
+                    <InputError error={error} style={styleDefaultError} />
                 </>
             )}
 

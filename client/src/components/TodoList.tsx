@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Link } from 'react-router-dom'
 import { TaskType } from '../ts-utils/types'
 import { Task } from './task/Index';
 import { CreateNewTask } from './input/Index'
-import socketIOClient from 'socket.io-client';
-const server = "https://tout-doux-server.herokuapp.com";
+import socket from './helpers/socket';
+import { styleDefaultError } from './helpers/styles';
+import { BackButton, ButtonSet, InputError } from './Index';
+import errorMessage from './helpers/errorMessage';
 
 const TodoList = () => {
   const [tasksList, setTasksList] = useState<Array<TaskType>>([])
@@ -17,7 +18,6 @@ const TodoList = () => {
   const [error, setError] = useState('')
   const [taskInputValue, setTaskInputValue] = useState("");
   const [active, setActive] = useState("all");
-  const socket = socketIOClient(server);
   const list = useParams().id
 
   useEffect(() => {
@@ -39,8 +39,6 @@ const TodoList = () => {
     fetchTasksList();
     socket.on("changes in tasks", data => {
       fetchTasksList()
-      console.log('new changes in the db')
-
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading])
@@ -81,22 +79,17 @@ const TodoList = () => {
     if (active === 'to do') setDisplay(todoTasksData)
   }
 
+
   const handleSubmitTask = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     const index = mainTasks.findIndex((item) => item.name === taskInputValue)
-        if (index !== -1) {
-            setError('task description already exists')
-            setTimeout(() => {
-                setError('')
-            }, 2000)
-            return;
-        }
-        if (e.key === 'Enter' && taskInputValue === "") {
-            setError('task description cannot be empty')
-            setTimeout(() => {
-                setError('')
-            }, 2000)
-            return;
-        }
+    if (index !== -1) {
+      errorMessage(setError, 'task description already exists')
+      return;
+    }
+    if (e.key === 'Enter' && taskInputValue === "") {
+      errorMessage(setError, 'task description cannot be empty')
+      return;
+    }
     if (e.key === 'Enter' && taskInputValue !== "") {
       const newTask = {
         "name": taskInputValue,
@@ -111,46 +104,11 @@ const TodoList = () => {
     }
   }
 
-  const styleActive = {
-    color: "#ffffff",
-    backgroundColor: "#a3499a",
-    borderColor: "#a3499a"
-
-  }
-
-  const styleDefault = {
-    color: "#1f1f1f",
-    backgroundColor: "transparent",
-    borderColor: "#1f1f1f"
-  }
-
   return (
     <main className="page__todolist">
-      <button className="todolist__button">
-        <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg>
-        <span><Link to={`/`}>back to lists</Link></span>
-      </button>
+      <BackButton />
       <h2 className="todolist__title">{list}</h2>
-      <section className="filters">
-        <p>show:</p>
-        <button className="button__filter"
-          style={active === "all" ? (styleActive) : (styleDefault)} onClick={() => {
-            setDisplay(mainTasks)
-            setActive("all")
-          }}>ALL</button>
-        <button className="button__filter"
-          style={active === "to do" ? (styleActive) : (styleDefault)}
-          onClick={() => {
-            setDisplay(todoTasks)
-            setActive("to do")
-          }}>TO DO</button>
-        <button className="button__filter"
-        style={active === "done" ? (styleActive):(styleDefault)}
-        onClick={() => {
-          setDisplay(doneTasks)
-          setActive("done")
-        }}>DONE</button>
-      </section>
+      <ButtonSet active={active} setActive={setActive} setDisplay={setDisplay} mainTasks={mainTasks} todoTasks={todoTasks} doneTasks={doneTasks} />
       {loading ? (<p>loading...</p>) : (
         display.map(task => (<Task
           key={task.name}
@@ -163,8 +121,8 @@ const TodoList = () => {
         />))
       )}
       {active === 'done' ? (<></>) : (<CreateNewTask value={taskInputValue} setValue={setTaskInputValue} handleSubmit={handleSubmitTask} />)}
-      {error ? (<p style={{ color: "red" }}>{error}</p>) : (<></>)}
-  
+      <InputError error={error} style={styleDefaultError} />
+
     </main>
   )
 }

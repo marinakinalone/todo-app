@@ -26,6 +26,16 @@ export interface SubtaskProp {
     done: boolean
     updateTask: UpdateTaskFunc
 }
+
+export interface ButtonSetProp {
+    active: string
+    setActive: React.Dispatch<React.SetStateAction<string>>
+    setDisplay: React.Dispatch<React.SetStateAction<TaskType[]>>
+    mainTasks: TaskType[]
+    todoTasks: TaskType[]
+    doneTasks: TaskType[]
+}
+
 export interface UpdateTaskFunc {
     (name: string, newData: TaskType): void
 }

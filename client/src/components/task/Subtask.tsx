@@ -1,17 +1,13 @@
 import React from 'react'
 import { SubtaskProp } from '../../ts-utils/types'
 import { useState } from 'react'
+import taskContent from '../helpers/taskContent'
+import { styleDefaultSubtask, styleDoneSubtask } from '../helpers/styles'
 
 const Subtask = ({name, listName, related, done, updateTask}:SubtaskProp) => {
   const [state, setState] = useState(done);
   const handleStateChange = () => {
-    const newData = {
-      "name": name,
-      "listName": listName,
-      "done": !state,
-      "type": "sub",
-      "related": related
-    }
+    const newData = taskContent(name, listName, !state, "sub", related)
     setState(!state)
     updateTask(name, newData)
   }
@@ -27,7 +23,7 @@ const Subtask = ({name, listName, related, done, updateTask}:SubtaskProp) => {
     <label
       htmlFor="subtask-checkbox"
       className="subtask__description"
-      style={state === true ? ({color: "#727171", backgroundColor: "transparent", fontStyle: "italic"}):({color: "#1f1f1f", backgroundColor: "transparent", fontStyle: "normal"})}
+      style={state === true ? (styleDoneSubtask):(styleDefaultSubtask)}
     >{name}</label>
     </article>
   )
