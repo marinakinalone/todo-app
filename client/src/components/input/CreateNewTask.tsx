@@ -1,6 +1,7 @@
 import React from 'react'
+import { InputProp } from '../../ts-utils/types'
 
-const CreateNewTask = ({taskInputValue, setTaskInputValue, handleSubmit}: any) => {
+const CreateNewTask = ({value, setValue, handleSubmit}: InputProp) => {
   return (
     <section className="todos__create">
         <input required={true}
@@ -8,8 +9,8 @@ const CreateNewTask = ({taskInputValue, setTaskInputValue, handleSubmit}: any) =
                 name="text"
                 className="todos__create-input"
                 onKeyPress={handleSubmit}
-                value={taskInputValue}
-                onChange={(e) => setTaskInputValue(e.target.value)} />
+                value={value}
+                onChange={(e) => setValue(e.target.value)} />
             <label className="todos__create-label">add new task</label>
 
     </section>

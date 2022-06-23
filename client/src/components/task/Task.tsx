@@ -80,7 +80,7 @@ const Task = ({ name, done, listName, tasksList, updateTask, createTask }: TaskP
         }
       })
       }
-      {state === true? (<></>) :(<CreateNewSubtask subtaskInputValue={subtaskInputValue} setSubtaskInputValue={setSubtaskInputValue} handleSubmitSubtask={handleSubmitSubtask} />)}
+      {state === true? (<></>) :(<CreateNewSubtask value={subtaskInputValue} setValue={setSubtaskInputValue} handleSubmit={handleSubmitSubtask} />)}
       {error ? (<p style={{ color: "red", paddingLeft: "2rem", fontSize: "0.9rem", backgroundColor:"#ffffff" }}>{error}</p>) : (<></>)}
     </section>
   )

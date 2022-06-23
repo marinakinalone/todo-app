@@ -159,7 +159,7 @@ const TodoList = () => {
           createTask={createTask}
         />))
       )}
-      {active === 'done' ? (<></>) : (<CreateNewTask taskInputValue={taskInputValue} setTaskInputValue={setTaskInputValue} handleSubmit={handleSubmitTask} />)}
+      {active === 'done' ? (<></>) : (<CreateNewTask value={taskInputValue} setValue={setTaskInputValue} handleSubmit={handleSubmitTask} />)}
       {error ? (<p style={{ color: "red" }}>{error}</p>) : (<></>)}
   
     </main>

@@ -14,7 +14,7 @@ export interface TaskProp {
     name: string,
     done: boolean,
     listName?: string,
-    tasksList: Array<TaskType>, 
+    tasksList: Array<TaskType>
     updateTask: UpdateTaskFunc
     createTask: CreateTaskFunc
 }
@@ -32,4 +32,10 @@ export interface UpdateTaskFunc {
 
 export interface CreateTaskFunc {
     (newTask: TaskType): Promise<void>
+}
+
+export interface InputProp {
+    value: string
+    setValue: React.Dispatch<React.SetStateAction<string>>
+    handleSubmit: any
 }

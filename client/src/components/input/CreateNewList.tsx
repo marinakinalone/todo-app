@@ -1,6 +1,7 @@
 import React from 'react'
+import { InputProp } from '../../ts-utils/types'
 
-const CreateNewList = ({handleSubmit, value, setValue}: any) => {
+const CreateNewList = ({handleSubmit, value, setValue}: InputProp) => {
     return (
         <section className="todos__create">
             <input required={true}
