@@ -1,5 +1,5 @@
 import Header from './Header'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import { TodoList } from '../ts-utils/types';
 import { CreateNewList } from './input/Index';
@@ -11,7 +11,9 @@ const Summary = () => {
     const [loading, setLoading] = useState(true);
     const [valueState, setValueState] = useState("");
     const [error, setError] = useState('')
+    const navigate = useNavigate()
     const socket = socketIOClient(server);
+
 
     useEffect(() => {
         const fetchListNames = async () => {
@@ -64,7 +66,11 @@ const Summary = () => {
                     <ul className="todos">
                         {todoListNames.map(todo => {
                             return (
-                                <li className="todos__item" key={todo.name}>
+                                <li
+                                className="todos__item"
+                                key={todo.name}
+                                onClick={() => navigate(`/${todo.name}`)}
+                                >
                                     <Link to={`/${todo.name}`}>{todo.name}</Link>
                                 </li>)
                         })}
