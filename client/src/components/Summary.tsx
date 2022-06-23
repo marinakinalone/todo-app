@@ -22,7 +22,7 @@ const Summary = () => {
             setTodoListNames([...result])
             setTimeout(() => {
                 setLoading(false)
-            }, 500)
+            }, 1000)
         }
         fetchListNames();
         socket.on("changes", data => {

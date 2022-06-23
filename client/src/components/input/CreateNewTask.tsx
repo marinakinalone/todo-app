@@ -11,6 +11,7 @@ const CreateNewTask = ({taskInputValue, setTaskInputValue, handleSubmit}: any) =
                 value={taskInputValue}
                 onChange={(e) => setTaskInputValue(e.target.value)} />
             <label className="todos__create-label">add new task</label>
+
     </section>
   )
 }

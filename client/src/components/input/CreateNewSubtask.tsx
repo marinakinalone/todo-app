@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CreateNewSubtask = ({ subtaskInputValue, setSubtaskInputValue, handleSubmitSubtask }: any) => {
+const CreateNewSubtask = ({ subtaskInputValue, setSubtaskInputValue, handleSubmitSubtask}: any) => {
     return (
         <section className="subtask__create">
             <input required={true}
@@ -11,7 +11,6 @@ const CreateNewSubtask = ({ subtaskInputValue, setSubtaskInputValue, handleSubmi
                 value={subtaskInputValue}
                 onChange={(e) => setSubtaskInputValue(e.target.value)}
                 placeholder="new subtask" />
-
             <span className="subtask__create-border"></span>
         </section>
     )

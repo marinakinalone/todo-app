@@ -14,6 +14,7 @@ const TodoList = () => {
   const [doneTasks, setDoneTasks] = useState<Array<TaskType>>([])
   const [display, setDisplay] = useState<Array<TaskType>>([])
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('')
   const [taskInputValue, setTaskInputValue] = useState("");
   const [active, setActive] = useState("all");
   const socket = socketIOClient(server);
@@ -33,7 +34,7 @@ const TodoList = () => {
       setDisplay([...mainTasksData])
       setTimeout(() => {
         setLoading(false)
-      }, 500)
+      }, 1000)
     }
     fetchTasksList();
     socket.on("changes", data => {
@@ -78,6 +79,21 @@ const TodoList = () => {
   }
 
   const handleSubmitTask = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const index = mainTasks.findIndex((item) => item.name === taskInputValue)
+        if (index !== -1) {
+            setError('task description already exists')
+            setTimeout(() => {
+                setError('')
+            }, 2000)
+            return;
+        }
+        if (e.key === 'Enter' && taskInputValue === "") {
+            setError('task description cannot be empty')
+            setTimeout(() => {
+                setError('')
+            }, 2000)
+            return;
+        }
     if (e.key === 'Enter' && taskInputValue !== "") {
       const newTask = {
         "name": taskInputValue,
@@ -144,6 +160,7 @@ const TodoList = () => {
         />))
       )}
       {active === 'done' ? (<></>) : (<CreateNewTask taskInputValue={taskInputValue} setTaskInputValue={setTaskInputValue} handleSubmit={handleSubmitTask} />)}
+      {error ? (<p style={{ color: "red" }}>{error}</p>) : (<></>)}
   
     </main>
   )

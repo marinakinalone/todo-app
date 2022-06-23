@@ -9,6 +9,8 @@ const Task = ({ name, done, listName, tasksList, updateTask, createTask }: TaskP
   const [state, setState] = useState(done);
   const [subtasks, setSubtasks] = useState<Array<TaskType>>([])
   const [subtaskInputValue, setSubtaskInputValue] = useState("");
+  const [error, setError] = useState('')
+
 
   useEffect(() => {
     const subtasksData = tasksList.filter((item: TaskType) => item.type === 'sub')
@@ -28,6 +30,21 @@ const Task = ({ name, done, listName, tasksList, updateTask, createTask }: TaskP
   }
 
   const handleSubmitSubtask = async (e: React.KeyboardEvent<HTMLInputElement>, related: string) => {
+    const index = subtasks.findIndex((item) => item.name === subtaskInputValue)
+    if (index !== -1) {
+        setError('task description already exists')
+        setTimeout(() => {
+            setError('')
+        }, 2000)
+        return;
+    }
+    if (e.key === 'Enter' && subtaskInputValue === "") {
+        setError('task description cannot be empty')
+        setTimeout(() => {
+            setError('')
+        }, 2000)
+        return;
+    }
     if (e.key === 'Enter' && subtaskInputValue !== "") {
       const newTask = {
         "name": subtaskInputValue,
@@ -64,7 +81,7 @@ const Task = ({ name, done, listName, tasksList, updateTask, createTask }: TaskP
       })
       }
       {state === true? (<></>) :(<CreateNewSubtask subtaskInputValue={subtaskInputValue} setSubtaskInputValue={setSubtaskInputValue} handleSubmitSubtask={handleSubmitSubtask} />)}
-     
+      {error ? (<p style={{ color: "red", paddingLeft: "2rem", fontSize: "0.9rem", backgroundColor:"#ffffff" }}>{error}</p>) : (<></>)}
     </section>
   )
 }
