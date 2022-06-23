@@ -37,11 +37,14 @@ const TodoList = () => {
       }, 1000)
     }
     fetchTasksList();
-    socket.on("changes", data => {
+    socket.on("changes in tasks", data => {
       fetchTasksList()
+      console.log('new changes in the db')
+
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading])
+
   const updateTask = async (name: string, newData: TaskType) => {
     await fetch(`https://tout-doux-server.herokuapp.com/${newData.listName}/${name}`, {
       method: 'PUT',

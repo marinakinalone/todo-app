@@ -25,7 +25,9 @@ const Summary = () => {
             }, 1000)
         }
         fetchListNames();
-        socket.on("changes", data => {
+        socket.on("changes in todos", data => {
+      console.log('new changes in lists')
+
             fetchListNames()
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
