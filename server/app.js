@@ -26,13 +26,13 @@ io.on('connection', (socket) => {
 });
 
 TodoList.watch().on('change', (change) => {
-  console.log('some changes in the database');
-  io.emit('changes', change.fullDocument);
+  console.log('some changes in the Todo List collection');
+  io.emit('changes in todos', change.fullDocument);
 });
 
 Task.watch().on('change', (change) => {
-  console.log('some changes in the database');
-  io.emit('changes', change.fullDocument);
+  console.log('some changes in the Task collection');
+  io.emit('changes in tasks', change.fullDocument);
 });
 
 app.use(cors());
