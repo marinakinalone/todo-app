@@ -40,6 +40,14 @@ const Summary = () => {
             }, 2000)
             return;
         }
+        if (e.key === 'Enter' && valueState === "") {
+            setError('please enter a name for your to-do list')
+            setTimeout(() => {
+                setError('')
+            }, 2000)
+            return;
+        }
+        
         if (e.key === 'Enter' && valueState !== "" && error === "") {
             await fetch('https://tout-doux-server.herokuapp.com/lists/create', {
                 method: 'POST',

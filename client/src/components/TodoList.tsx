@@ -88,6 +88,7 @@ const TodoList = () => {
       }
       await createTask(newTask)
       setTaskInputValue('');
+
     }
   }
 
