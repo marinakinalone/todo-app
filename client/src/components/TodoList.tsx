@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { TaskType } from '../ts-utils/types'
 import { Task } from './task/Index';
 import { CreateNewTask } from './input/Index'
+import socketIOClient from 'socket.io-client';
+const server = "https://tout-doux-server.herokuapp.com";
 
 const TodoList = () => {
   const [tasksList, setTasksList] = useState<Array<TaskType>>([])
@@ -14,8 +16,7 @@ const TodoList = () => {
   const [loading, setLoading] = useState(true);
   const [taskInputValue, setTaskInputValue] = useState("");
   const [active, setActive] = useState("all");
-
-
+  const socket = socketIOClient(server);
   const list = useParams().id
 
   useEffect(() => {
@@ -35,6 +36,9 @@ const TodoList = () => {
       }, 500)
     }
     fetchTasksList();
+    socket.on("changes", data => {
+      fetchTasksList()
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading])
   const updateTask = async (name: string, newData: TaskType) => {

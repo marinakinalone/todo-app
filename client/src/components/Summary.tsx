@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import { TodoList } from '../ts-utils/types';
 import { CreateNewList } from './input/Index';
-import socketIOClient from "socket.io-client";
+import socketIOClient from 'socket.io-client';
 const server = "https://tout-doux-server.herokuapp.com";
 
 const Summary = () => {
@@ -26,6 +26,7 @@ const Summary = () => {
         socket.on("changes", data => {
             fetchListNames()
         });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loading])
 
     const handleSubmit = async (e: React.KeyboardEvent<HTMLInputElement>) => {
