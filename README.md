@@ -52,6 +52,8 @@ To run the application locally, an .env file has to be provided in the server fo
 ## What I have learned from this project
 I love the MERN tech stack for its flexibility and smooth development workflow, so I'm always having fun building this type of full-stack app. I wish I were allowed to use Redux to deal with all the small interactions in the to-do list. Consequently, this project made me practice more complex ReactJS when I had to deal with many different states for all the actions performed in the app. 
 
+I got more comfortable with React Router, especially with using parameters for navigation.
+
 Implementing sockets to make the app collaborative is something I have not done. Combining the db.collection.watch() method from MongoDB with sockets from socket.io made it very easy to monitor the changes made in the database!
 
 ## What's next to do?
